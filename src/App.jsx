@@ -9,23 +9,15 @@ export const UserContext = createContext();
 function App() {
   const [step, setStep] = useState(1);
   const [plan, setPlan] = useState('Arcade');
-  const [bill, setBill] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialData);
 
   return (
     <UserContext.Provider value={{ state, dispatch }}>
-      <main className=" max-w-[1440px] flex justify-center items-center w-full h-full">
-        <div className=" w-[940px] h-[600px] bg-white rounded-xl shadow-lg">
-          <div className="flex p-4 gap-4">
+      <main className="md:max-w-[1440px] md:flex md:justify-center md:items-center w-full h-full">
+        <div className="md:w-[940px] md:h-[600px] md:bg-white md:rounded-xl md:shadow-lg">
+          <div className="relative md:flex md:p-4 md:gap-4">
             <Sidebar stepItem={stepItem} step={step} setStep={setStep} />
-            <Form
-              step={step}
-              setStep={setStep}
-              plan={plan}
-              setPlan={setPlan}
-              bill={bill}
-              setBill={setBill}
-            />
+            <Form step={step} setStep={setStep} plan={plan} setPlan={setPlan} />
           </div>
         </div>
       </main>

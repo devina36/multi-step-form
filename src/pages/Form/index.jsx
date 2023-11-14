@@ -4,31 +4,34 @@ import { CheckListIcon } from '../../assets/images';
 import InputField from '../../component/InputField';
 import { addOnsService, plans } from './utils/data';
 
-const Form = ({ step, setStep, plan, setPlan, bill, setBill }) => {
+const Form = ({ step, setStep, plan, setPlan }) => {
   const { state, dispatch } = useContext(UserContext);
 
+  const handleChangeFormStepOne = (event, type) => {
+    let data;
+    data = { type: type, name: event.target.value };
+    return dispatch(data);
+  };
+
   return (
-    <div className=" relative mx-auto w-[450px] min-w-[450px] h-auto">
+    <div className="absolute bg-white px-[25px] md:px-0 rounded-lg mx-[16px] top-[99px] md:relative md:top-0 md:mx-auto md:w-[450px] md:min-w-[450px] md:h-auto">
       {step === 1 && (
-        <>
-          <div className="my-[35px]">
-            <h1 className=" text-[32px] text-marine leading-normal font-bold">
+        <div className="mb-[28px]">
+          <div className="mb-[20px] mt-[28px] md:mt-[35px] md:mb-[35px]">
+            <h1 className=" text-2xl md:text-[32px] mb-2 md:mb-0 text-marine leading-normal font-bold">
               Personal info
             </h1>
-            <h3 className="text-cool text-lg font-light tracking-[-0.045em]">
+            <h3 className="text-cool text-base md:text-lg font-light tracking-[0.015em] md:tracking-[-0.045em]">
               Please provide your name, email address, and phone number.
             </h3>
           </div>
-          <div className="flex gap-[22.5px] flex-col">
+          <div className="flex gap-[14px] md:gap-[22.5px] flex-col">
             <InputField
               titleName={'name'}
               name="name"
               type="text"
               error={false}
-              onChange={(e) => {
-                const data = { type: 'changed_name', name: e.target.value };
-                dispatch(data);
-              }}
+              onChange={(e) => handleChangeFormStepOne(e, 'changed_name')}
               placeholder={'e.g. Stephen King'}
             />
             <InputField
@@ -36,10 +39,7 @@ const Form = ({ step, setStep, plan, setPlan, bill, setBill }) => {
               name="email"
               type="email"
               error={false}
-              onChange={(e) => {
-                const data = { type: 'changed_email', email: e.target.value };
-                dispatch(data);
-              }}
+              onChange={(e) => handleChangeFormStepOne(e, 'changed_email')}
               placeholder={'e.g. stephenking@lorem.com'}
             />
             <InputField
@@ -47,14 +47,11 @@ const Form = ({ step, setStep, plan, setPlan, bill, setBill }) => {
               name="phone"
               type="tel"
               error={true}
-              onChange={(e) => {
-                const data = { type: 'changed_phone', phone: e.target.value };
-                dispatch(data);
-              }}
+              onChange={(e) => handleChangeFormStepOne(e, 'changed_phone')}
               placeholder={'e.g. +1 234 567 890'}
             />
           </div>
-        </>
+        </div>
       )}
 
       {step === 2 && (
@@ -85,7 +82,10 @@ const Form = ({ step, setStep, plan, setPlan, bill, setBill }) => {
                     const data = {
                       type: 'changed_plan',
                       plan: item.name,
-                      price: bill ? item.priceYear : item.priceMonthly,
+                      price:
+                        state.bill === 'Yearly'
+                          ? item.priceYear
+                          : item.priceMonthly,
                     };
                     dispatch(data);
                   }}
@@ -99,7 +99,7 @@ const Form = ({ step, setStep, plan, setPlan, bill, setBill }) => {
                   <h4 className="text-marine font-bold tracking-tight">
                     {item.name}
                   </h4>
-                  {bill ? (
+                  {state.bill === 'Yearly' ? (
                     <>
                       <p className="text-cool text-sm">${item.priceYear}/yr</p>
                       <p className="text-marine text-sm font-medium tracking-[-0.075em] mt-1">
@@ -119,7 +119,6 @@ const Form = ({ step, setStep, plan, setPlan, bill, setBill }) => {
                 type="checkbox"
                 checked={state.bill === 'Monthly' ? false : true}
                 onChange={(e) => {
-                  setBill(!bill);
                   const plan = plans.find((d) => d.name === state.plan);
                   const data = {
                     type: 'changed_bill',
@@ -130,7 +129,6 @@ const Form = ({ step, setStep, plan, setPlan, bill, setBill }) => {
                         : plan.priceMonthly,
                   };
                   dispatch(data);
-                  console.log(state);
                 }}
                 className="sr-only peer"
               />
@@ -185,7 +183,6 @@ const Form = ({ step, setStep, plan, setPlan, bill, setBill }) => {
                             check: e.target.checked,
                             addOns: item,
                           });
-                          console.log(state);
                         }}
                       />
                       <div className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
@@ -200,7 +197,7 @@ const Form = ({ step, setStep, plan, setPlan, bill, setBill }) => {
                       </h4>
                       <p className="text-cool text-sm">{item.desc}</p>
                     </div>
-                    {bill ? (
+                    {state.bill === 'Yearly' ? (
                       <p className="text-purplish text-sm font-medium leading-none pt-[5px]">
                         +${item.priceYear}/yr
                       </p>
@@ -255,7 +252,7 @@ const Form = ({ step, setStep, plan, setPlan, bill, setBill }) => {
                       <h5 className="text-cool text-sm tracking-[-0.015em]">
                         {item.name}
                       </h5>
-                      {bill ? (
+                      {state.bill === 'Yearly' ? (
                         <p className="text-marine text-sm font-medium ">
                           +${item.priceYear}/yr
                         </p>
@@ -288,23 +285,27 @@ const Form = ({ step, setStep, plan, setPlan, bill, setBill }) => {
         </>
       )}
 
-      <div className="absolute w-full flex justify-between items-center right-0 mb-4 bottom-0">
+      <div
+        className={`bg-white md:bg-transparent p-4 md:p-0 fixed md:absolute w-full flex items-center right-0 md:mb-4 bottom-0 ${
+          step !== 1 ? 'justify-between' : 'justify-end'
+        }`}
+      >
         {step !== 1 && (
           <button
-            className="text-cool text-base hover:text-marine font-medium py-3 transition-all ease-in-out delay-150 duration-300"
+            className="text-cool text-sm md:text-base hover:text-marine font-medium py-[10px] md:py-3 transition-all ease-in-out delay-150 duration-300"
             onClick={() => setStep(step - 1)}
           >
             Go Back
           </button>
         )}
         {step !== 4 && (
-          <div className="absolute right-0 bottom-0">
+          <div className="md:absolute md:right-0 md:bottom-0 ">
             <button
-              className="relative bg-marine group text-white py-3 px-6 text-base font-medium rounded-lg"
+              className="relative bg-marine group text-white py-[10px] md:py-3 px-[17px] md:px-6 text-sm md:text-base font-medium rounded-md md:rounded-lg"
               onClick={() => setStep(step + 1)}
             >
               Next Step
-              <span className=" absolute top-0 left-0 w-full h-full rounded-lg group-hover:bg-alabaster/10" />
+              <span className=" absolute top-0 left-0 w-full h-full rounded-md md:rounded-lg group-hover:bg-alabaster/10" />
             </button>
           </div>
         )}

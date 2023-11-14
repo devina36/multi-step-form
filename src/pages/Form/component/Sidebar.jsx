@@ -1,12 +1,19 @@
 import React from 'react';
-import { SidebarDekstop } from '../../../assets/images';
+import { SidebarDekstop, SidebarMobile } from '../../../assets/images';
 
 const Sidebar = ({ stepItem, step, setStep }) => {
   return (
     <div className="h-full w-fit relative">
-      <img src={SidebarDekstop} className="h-full w-[274px]" />
+      <picture>
+        <source
+          media="(min-width:600px)"
+          srcset={SidebarDekstop}
+          className="h-full w-[274px]"
+        />
+        <img src={SidebarMobile} />
+      </picture>
       <div className="absolute w-full h-full top-0">
-        <div className=" flex flex-col gap-y-[32px] px-[32px] py-[38.5px]">
+        <div className=" flex justify-center items-center md:justify-start md:items-start md:flex-col gap-4 py-[31px] md:gap-y-[32px] md:px-[32px] md:py-[38.5px] ">
           {stepItem.map((item) => {
             return (
               <button
@@ -23,7 +30,7 @@ const Sidebar = ({ stepItem, step, setStep }) => {
                 >
                   {item.value}
                 </span>
-                <span className="text-start">
+                <span className="text-star hidden md:block ">
                   <p className="text-sm text-light-gray leading-snug font-thin tracking-[-0.075em]">
                     STEP {item.value}
                   </p>
