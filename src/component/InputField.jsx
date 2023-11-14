@@ -8,17 +8,17 @@ const InputField = ({
   placeholder,
   onChange,
 }) => {
-  const handlephone = () => {
-    let coba = '+99077289';
-    coba = coba
-      .split('')
-      .reverse()
-      .join('')
-      .replace(/([0-9+]{3})/g, '$1 ')
-      .split('')
-      .reverse()
-      .join('');
-  };
+  // const handlephone = () => {
+  //   let coba = '+99077289';
+  //   coba = coba
+  //     .split('')
+  //     .reverse()
+  //     .join('')
+  //     .replace(/([0-9+]{3})/g, '$1 ')
+  //     .split('')
+  //     .reverse()
+  //     .join('');
+  // };
   return (
     <div>
       <div className="flex items-center justify-between">
