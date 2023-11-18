@@ -64,7 +64,7 @@ const Form = ({ step, setStep, plan, setPlan }) => {
               You have the option of monthly or yearly billing
             </h3>
           </div>
-          <div className="grid md:grid-flow-col md:grid-cols-3 gap-[10px] md:gap-4">
+          <div className="grid md:grid-flow-col md:grid-cols-3 gap-[12px] md:gap-4">
             {plans.map((item) => (
               <label
                 className="relative"
@@ -90,7 +90,7 @@ const Form = ({ step, setStep, plan, setPlan }) => {
                     dispatch(data);
                   }}
                 />
-                <div className="border flex flex-row gap-3 md:gap-0 items-center md:items-start md:flex-col border-light-gray rounded-[10px] px-4 pt-4 md:pt-5 pb-4 md:pb-4 peer-checked:bg-alabaster peer-checked:border-purplish">
+                <div className="border flex flex-row gap-3 items-start md:gap-0 md:flex-col border-light-gray rounded-[10px] px-4 pt-[15px] md:pt-5 pb-[15px] md:pb-4 peer-checked:bg-alabaster peer-checked:border-purplish">
                   <img
                     src={item.img}
                     alt={`img-${item.name}`}
@@ -138,7 +138,7 @@ const Form = ({ step, setStep, plan, setPlan }) => {
                 }}
                 className="sr-only peer"
               />
-              <div className="w-[40px] relative h-5 bg-marine peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-5 peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all">
+              <div className="w-[37px] relative h-5 bg-marine peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-4 peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all">
                 <div className="absolute w-full h-full bg-transparent rounded-full " />
               </div>
               <p className="text-sm font-bold leading-none order-first text-marine peer-checked:text-cool">
@@ -153,22 +153,22 @@ const Form = ({ step, setStep, plan, setPlan }) => {
       )}
 
       {step === 3 && (
-        <>
-          <div className="my-[35px]">
-            <h1 className=" text-[32px] text-marine leading-normal font-bold">
+        <div className="mb-7">
+          <div className="mb-[20px] mt-[28px] md:mt-[35px] md:mb-[35px]">
+            <h1 className=" text-2xl md:text-[32px] mb-2 md:mb-0 text-marine leading-normal font-bold">
               Pick add-ons
             </h1>
-            <h3 className="text-cool text-lg font-light tracking-[-0.045em]">
+            <h3 className="text-cool text-base md:text-lg font-light tracking-[0.015em] md:tracking-[-0.045em]">
               Add-ons help enhance your gaming experience.
             </h3>
           </div>
-          <div className="flex flex-col gap-4 pt-[1px] ">
+          <div className="flex flex-col gap-[10px] md:gap-4 pt-[1px] ">
             {addOnsService.map((item) => {
               const pick =
                 state.addOns?.filter((ons) => ons === item).length > 0;
               return (
                 <div
-                  className={`border flex gap-x-3 items-center transition-all border-light-gray rounded-[10px] pr-6 pl-[11px] pt-4 pb-5 hover:border-purplish cursor-pointer ${
+                  className={`border flex gap-x-1 md:gap-x-3 items-center transition-all border-light-gray rounded-[10px] pr-[15px] md:pr-6 pl-[3px] md:pl-[11px] pt-[11px] md:pt-4 pb-[15px] md:pb-5 hover:border-purplish cursor-pointer ${
                     pick ? 'bg-alabaster border-purplish' : ''
                   } `}
                   key={item.name}
@@ -198,17 +198,19 @@ const Form = ({ step, setStep, plan, setPlan }) => {
                   </div>
                   <div className="flex justify-between items-center w-full">
                     <div>
-                      <h4 className="text-marine font-bold tracking-[-0.015em]">
+                      <h4 className="text-sm md:text-base text-marine font-bold tracking-[-0.015em]">
                         {item.name}
                       </h4>
-                      <p className="text-cool text-sm">{item.desc}</p>
+                      <p className="text-cool text-xs md:text-sm">
+                        {item.desc}
+                      </p>
                     </div>
                     {state.bill === 'Yearly' ? (
-                      <p className="text-purplish text-sm font-medium leading-none pt-[5px]">
+                      <p className="text-purplish text-xs md:text-sm font-medium leading-none pt-[5px]">
                         +${item.priceYear}/yr
                       </p>
                     ) : (
-                      <p className="text-purplish text-sm font-medium leading-none pt-[5px]">
+                      <p className="text-purplish text-xs md:text-sm font-medium leading-none pt-[5px]">
                         +${item.priceMonthly}/mo
                       </p>
                     )}
@@ -217,7 +219,7 @@ const Form = ({ step, setStep, plan, setPlan }) => {
               );
             })}
           </div>
-        </>
+        </div>
       )}
 
       {step === 4 && (
