@@ -15,7 +15,7 @@ function App() {
     <UserContext.Provider value={{ state, dispatch }}>
       <main className="md:max-w-[1440px] md:flex md:justify-center md:items-center w-full h-full">
         <div className="md:w-[940px] md:h-[600px] md:bg-white md:rounded-xl md:shadow-lg">
-          <div className="relative md:flex md:p-4 md:gap-4">
+          <div className="relative z-0 md:flex md:p-4 md:gap-4">
             <Sidebar stepItem={stepItem} step={step} setStep={setStep} />
             <Form step={step} setStep={setStep} plan={plan} setPlan={setPlan} />
           </div>

@@ -14,10 +14,10 @@ const Form = ({ step, setStep, plan, setPlan }) => {
   };
 
   return (
-    <div className="absolute bg-white px-[25px] md:px-0 rounded-lg mx-[16px] top-[99px] md:relative md:top-0 md:mx-auto md:w-[450px] md:min-w-[450px] md:h-auto">
+    <div className=" my-[99px] md:my-0 inline-block bg-white px-[25px] md:px-0 rounded-lg mx-[16px] md:relative md:top-0 md:mx-auto md:w-[450px] md:min-w-[450px] md:h-auto">
       {step === 1 && (
-        <div className="mb-[28px]">
-          <div className="mb-[20px] mt-[28px] md:mt-[35px] md:mb-[35px]">
+        <div className="mb-[28px] inline-block">
+          <div className="mb-[20px] mt-[28px] inline-block md:mt-[35px] md:mb-[35px]">
             <h1 className=" text-2xl md:text-[32px] mb-2 md:mb-0 text-marine leading-normal font-bold">
               Personal info
             </h1>
@@ -55,8 +55,8 @@ const Form = ({ step, setStep, plan, setPlan }) => {
       )}
 
       {step === 2 && (
-        <div className="mb-7">
-          <div className="mb-[20px] mt-[28px] md:mt-[35px] md:mb-[35px]">
+        <div className="mb-7 block">
+          <div className="mb-[20px] mt-[28px] inline-block md:mt-[35px] md:mb-[35px]">
             <h1 className="  text-2xl md:text-[32px] mb-2 md:mb-0 text-marine leading-normal font-bold">
               Select your plan
             </h1>
@@ -153,8 +153,8 @@ const Form = ({ step, setStep, plan, setPlan }) => {
       )}
 
       {step === 3 && (
-        <div className="mb-7">
-          <div className="mb-[20px] mt-[28px] md:mt-[35px] md:mb-[35px]">
+        <div className="mb-7 block">
+          <div className="mb-[20px] mt-[28px] inline-block md:mt-[35px] md:mb-[35px]">
             <h1 className=" text-2xl md:text-[32px] mb-2 md:mb-0 text-marine leading-normal font-bold">
               Pick add-ons
             </h1>
@@ -223,20 +223,20 @@ const Form = ({ step, setStep, plan, setPlan }) => {
       )}
 
       {step === 4 && (
-        <>
-          <div className="my-[35px]">
-            <h1 className=" text-[32px] text-marine leading-normal font-bold">
+        <div className="mb-7 block">
+          <div className="mb-[20px] mt-[28px] inline-block md:mt-[35px] md:mb-[35px]">
+            <h1 className=" text-2xl md:text-[32px] mb-2 md:mb-0 text-marine leading-normal font-bold">
               Finishing up
             </h1>
-            <h3 className="text-cool text-lg font-light tracking-[-0.045em]">
+            <h3 className="text-cool text-base md:text-lg font-light tracking-[0.015em] md:tracking-[-0.045em]">
               Double-check everything looks OK before confirming
             </h3>
           </div>
-          <div className="flex flex-col gap-[26px] ">
-            <div className=" bg-alabaster rounded-[10px] px-6 py-5 flex flex-col gap-y-4">
+          <div className="flex flex-col gap-4 md:gap-[26px] ">
+            <div className=" bg-alabaster rounded-[10px] px-[14px] md:px-6 py-5 flex flex-col gap-y-0 md:gap-y-4">
               <div className="flex justify-between items-center">
                 <div className=" border-b border-cool pb-[22px]">
-                  <h4 className="text-marine font-bold tracking-[-0.015em] leading-tight pr-3">
+                  <h4 className="text-marine text-sm md:text-base font-bold tracking-[-0.015em] leading-none md:leading-tight pr-3">
                     {`${state.plan} (${state.bill})`}{' '}
                   </h4>
                   <button
@@ -250,47 +250,49 @@ const Form = ({ step, setStep, plan, setPlan }) => {
                   ${state.price}/{state.bill === 'Monthly' ? 'mo' : 'yr'}
                 </p>
               </div>
-              {state.addOns.length > 0 && (
-                <>
-                  {state.addOns?.map((item) => (
-                    <div
-                      className="flex justify-between w-full"
-                      key={item.name}
-                    >
-                      <h5 className="text-cool text-sm tracking-[-0.015em]">
-                        {item.name}
-                      </h5>
-                      {state.bill === 'Yearly' ? (
-                        <p className="text-marine text-sm font-medium ">
-                          +${item.priceYear}/yr
-                        </p>
-                      ) : (
-                        <p className="text-marine text-sm font-medium ">
-                          +${item.priceMonthly}/mo
-                        </p>
-                      )}
-                    </div>
-                  ))}
-                </>
-              )}
+              <div className="flex gap-y-3 md:gap-y-4 flex-col">
+                {state.addOns.length > 0 && (
+                  <>
+                    {state.addOns?.map((item) => (
+                      <div
+                        className="flex justify-between w-full"
+                        key={item.name}
+                      >
+                        <h5 className="text-cool text-sm tracking-[-0.015em]">
+                          {item.name}
+                        </h5>
+                        {state.bill === 'Yearly' ? (
+                          <p className="text-marine text-sm font-medium ">
+                            +${item.priceYear}/yr
+                          </p>
+                        ) : (
+                          <p className="text-marine text-sm font-medium ">
+                            +${item.priceMonthly}/mo
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
             </div>
 
-            <div className=" px-6 flex justify-between items-center">
+            <div className=" px-[14px] md:px-6 flex justify-between items-center">
               <h5 className="text-cool text-sm">
                 Total {state.bill === 'Monthly' ? '(per month)' : '(per year)'}
               </h5>
               {state.bill === 'Monthly' ? (
-                <p className="text-purplish text-xl font-bold ">
+                <p className="text-purplish text-lg tracking-tight md:tracking-normal md:text-xl font-bold ">
                   +${state.total}/mo
                 </p>
               ) : (
-                <p className="text-purplish text-xl font-bold ">
+                <p className="text-purplish text-lg tracking-tight md:tracking-normal md:text-xl font-bold ">
                   +${state.total}/yr
                 </p>
               )}
             </div>
           </div>
-        </>
+        </div>
       )}
 
       <div
@@ -318,8 +320,8 @@ const Form = ({ step, setStep, plan, setPlan }) => {
           </div>
         )}
         {step === 4 && (
-          <div className="absolute right-0 bottom-0">
-            <button className="relative bg-purplish text-white py-3 px-8 text-base font-medium rounded-lg">
+          <div className="md:absolute md:right-0 md:bottom-0">
+            <button className="relative bg-purplish text-white py-[10px] md:py-3 px-[22px] md:px-8 text-sm md:text-base font-medium rounded-md md:rounded-lg">
               Confirm
               <span className=" absolute top-0 left-0 w-full h-full rounded-lg hover:bg-alabaster/10" />
             </button>

@@ -3,7 +3,7 @@ import { SidebarDekstop, SidebarMobile } from '../../../assets/images';
 
 const Sidebar = ({ stepItem, step, setStep }) => {
   return (
-    <div className="h-full w-fit relative">
+    <div className="absolute -z-10 md:z-0 top-0 w-fit md:relative">
       <picture>
         <source
           media="(min-width:600px)"
