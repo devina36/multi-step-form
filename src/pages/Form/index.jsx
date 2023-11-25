@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../App';
-import { CheckListIcon } from '../../assets/images';
+import { CheckListIcon, IconThank } from '../../assets/images';
 import InputField from '../../component/InputField';
 import { addOnsService, plans } from './utils/data';
 
@@ -14,7 +14,7 @@ const Form = ({ step, setStep, plan, setPlan }) => {
   };
 
   return (
-    <div className=" my-[99px] md:my-0 inline-block bg-white px-[25px] md:px-0 rounded-lg mx-[16px] md:relative md:top-0 md:mx-auto md:w-[450px] md:min-w-[450px] md:h-auto">
+    <div className=" my-[99px] md:my-0 inline-block bg-white px-[25px] md:px-0 rounded-lg mx-[16px] md:relative md:top-0 md:mx-auto shadow-md md:w-screen md:shadow-none md:min-w-[450px] md:h-auto">
       {step === 1 && (
         <div className="mb-[28px] inline-block">
           <div className="mb-[20px] mt-[28px] inline-block md:mt-[35px] md:mb-[35px]">
@@ -55,7 +55,7 @@ const Form = ({ step, setStep, plan, setPlan }) => {
       )}
 
       {step === 2 && (
-        <div className="mb-7 block">
+        <div className="mb-7 inline-block">
           <div className="mb-[20px] mt-[28px] inline-block md:mt-[35px] md:mb-[35px]">
             <h1 className="  text-2xl md:text-[32px] mb-2 md:mb-0 text-marine leading-normal font-bold">
               Select your plan
@@ -153,7 +153,7 @@ const Form = ({ step, setStep, plan, setPlan }) => {
       )}
 
       {step === 3 && (
-        <div className="mb-7 block">
+        <div className="mb-7 inline-block">
           <div className="mb-[20px] mt-[28px] inline-block md:mt-[35px] md:mb-[35px]">
             <h1 className=" text-2xl md:text-[32px] mb-2 md:mb-0 text-marine leading-normal font-bold">
               Pick add-ons
@@ -222,8 +222,8 @@ const Form = ({ step, setStep, plan, setPlan }) => {
         </div>
       )}
 
-      {step === 4 && (
-        <div className="mb-7 block">
+      {step === 4 && state.confirm === false && (
+        <div className="mb-7 inline-block">
           <div className="mb-[20px] mt-[28px] inline-block md:mt-[35px] md:mb-[35px]">
             <h1 className=" text-2xl md:text-[32px] mb-2 md:mb-0 text-marine leading-normal font-bold">
               Finishing up
@@ -295,10 +295,28 @@ const Form = ({ step, setStep, plan, setPlan }) => {
         </div>
       )}
 
+      {step === 4 && state.confirm === true && (
+        <div className="my-[80px] md:my-0 md:h-full flex flex-col justify-center items-center gap-y-5">
+          <img
+            src={IconThank}
+            alt="thank-you"
+            className=" w-[55px] h-[55px] md:h-[80px] md:w-[80px]"
+          />
+          <h1 className=" text-2xl md:text-[32px] mb-2 md:mb-0 text-marine leading-normal font-bold">
+            Thank you!
+          </h1>
+          <h5 className="-mt-5 md:-mt-2 text-center text-cool">
+            Thanks for confirming your subscription! We hope you have fun using
+            our platform. If you ever need support, please feel free to email us
+            at support@loremgaming.com.
+          </h5>
+        </div>
+      )}
+
       <div
-        className={`bg-white md:bg-transparent p-4 md:p-0 fixed md:absolute w-full flex items-center right-0 md:mb-4 bottom-0 ${
+        className={`bg-white md:bg-transparent p-4 md:p-0 fixed md:absolute w-full items-center right-0 md:mb-4 bottom-0 ${
           step !== 1 ? 'justify-between' : 'justify-end'
-        }`}
+        } ${state.confirm === true ? 'hidden' : 'flex'}`}
       >
         {step !== 1 && (
           <button
@@ -319,9 +337,12 @@ const Form = ({ step, setStep, plan, setPlan }) => {
             </button>
           </div>
         )}
-        {step === 4 && (
+        {step === 4 && state.confirm === false && (
           <div className="md:absolute md:right-0 md:bottom-0">
-            <button className="relative bg-purplish text-white py-[10px] md:py-3 px-[22px] md:px-8 text-sm md:text-base font-medium rounded-md md:rounded-lg">
+            <button
+              onClick={() => dispatch({ type: 'confirm', confirm: true })}
+              className="relative bg-purplish text-white py-[10px] md:py-3 px-[22px] md:px-8 text-sm md:text-base font-medium rounded-md md:rounded-lg"
+            >
               Confirm
               <span className=" absolute top-0 left-0 w-full h-full rounded-lg hover:bg-alabaster/10" />
             </button>

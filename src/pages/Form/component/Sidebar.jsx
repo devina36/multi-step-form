@@ -10,7 +10,7 @@ const Sidebar = ({ stepItem, step, setStep }) => {
           srcset={SidebarDekstop}
           className="h-full w-[274px]"
         />
-        <img src={SidebarMobile} />
+        <img src={SidebarMobile} className="w-screen" />
       </picture>
       <div className="absolute w-full h-full top-0">
         <div className=" flex justify-center items-center md:justify-start md:items-start md:flex-col gap-4 py-[31px] md:gap-y-[32px] md:px-[32px] md:py-[38.5px] ">
@@ -30,7 +30,7 @@ const Sidebar = ({ stepItem, step, setStep }) => {
                 >
                   {item.value}
                 </span>
-                <span className="text-star hidden md:block ">
+                <span className="text-start hidden md:block ">
                   <p className="text-sm text-light-gray leading-snug font-thin tracking-[-0.075em]">
                     STEP {item.value}
                   </p>

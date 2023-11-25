@@ -7,6 +7,7 @@ const initialData = {
   bill: 'Monthly',
   addOns: [],
   total: 9,
+  confirm: false,
 };
 
 const result = (bill, addOns, price) => {
@@ -80,6 +81,12 @@ function reducer(state, action) {
         ...state,
         addOns: addOns,
         total: total,
+      };
+    }
+    case 'confirm': {
+      return {
+        ...state,
+        confirm: true,
       };
     }
   }
