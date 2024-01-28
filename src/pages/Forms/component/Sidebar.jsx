@@ -3,24 +3,23 @@ import { SidebarDekstop, SidebarMobile } from '../../../assets/images';
 
 const Sidebar = ({ stepItem, step, setStep }) => {
   return (
-    <div className="absolute -z-10 md:z-0 top-0 w-fit md:relative">
+    <div className="absolute -z-10 md:z-0 top-0 w-full md:w-[274px] h-full md:relative">
       <picture>
         <source
-          media="(min-width:600px)"
-          srcset={SidebarDekstop}
-          className="h-full w-[274px]"
+          media="(max-width:768px)"
+          srcset={SidebarMobile}
+          className="w-screen h-auto"
         />
-        <img src={SidebarMobile} className="w-screen" />
+        <img
+          src={SidebarDekstop}
+          className="md:w-[274px] w-screen h-auto md:h-full"
+        />
       </picture>
       <div className="absolute w-full h-full top-0">
         <div className=" flex justify-center items-center md:justify-start md:items-start md:flex-col gap-4 py-[31px] md:gap-y-[32px] md:px-[32px] md:py-[38.5px] ">
           {stepItem.map((item) => {
             return (
-              <button
-                key={item.title}
-                className=" flex items-center gap-4"
-                onClick={() => setStep(item.value)}
-              >
+              <div key={item.title} className=" flex items-center gap-4">
                 <span
                   className={`w-[33px] text-sm leading-relaxed font-bold h-[33px] flex justify-center items-center rounded-full ${
                     step === item.value
@@ -38,7 +37,7 @@ const Sidebar = ({ stepItem, step, setStep }) => {
                     {item.title}
                   </p>
                 </span>
-              </button>
+              </div>
             );
           })}
         </div>
